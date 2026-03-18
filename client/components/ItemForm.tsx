@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import API from '../lib/axios';
