@@ -2,7 +2,7 @@
 
 A modern, premium full-stack application for managing and sharing items, built with **React (Next.js)**, **Node.js (Express)**, and **MySQL**.
 
-## 🚀 Features
+## Features
 
 - **Home Dashboard**: Displays a responsive grid of items with real-time search.
 - **Item Management**: Securely add new items with full form validation.
@@ -13,7 +13,7 @@ A modern, premium full-stack application for managing and sharing items, built w
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: React 19, Next.js 15 (App Router), Tailwind CSS v4, Axios.
 - **Backend**: Node.js, Express, MySQL (mysql2/promise), JWT, Bcrypt.js.
@@ -21,7 +21,7 @@ A modern, premium full-stack application for managing and sharing items, built w
 
 ---
 
-## 📋 Prerequisites
+## Prerequisites
 
 - **Node.js** (v18 or higher)
 - **MySQL Server**
@@ -29,7 +29,7 @@ A modern, premium full-stack application for managing and sharing items, built w
 
 ---
 
-## ⚙️ Local Setup
+## Local Setup
 
 ### 1. Database Configuration
 1. Create a MySQL database named `item_manager`.
@@ -86,14 +86,14 @@ A modern, premium full-stack application for managing and sharing items, built w
 
 ---
 
-## 🔑 Demo Account
+## Demo Account
 If you used the `npm run seed` command, you can log in with:
 - **Email**: `demo@itemmanager.com`
 - **Password**: `password123`
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 - `/client`: Next.js application (App Router).
 - `/server`: Node.js Express API.
