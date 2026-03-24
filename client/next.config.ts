@@ -9,7 +9,6 @@ const nextConfig: NextConfig = {
   },
 
   // Performance & Bundle Optimization
-  swcMinify: true,
   compress: true,
   productionBrowserSourceMaps: false,
 
