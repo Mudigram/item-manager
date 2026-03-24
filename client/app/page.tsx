@@ -46,17 +46,21 @@ export default function Home() {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="w-full space-y-6 sm:space-y-8 lg:space-y-10">
       <ItemHeader />
       
-      <SearchBar 
-        search={search} 
-        setSearch={setSearch} 
-        loading={loading} 
-        itemCount={items.length} 
-      />
+      <div className="w-full">
+        <SearchBar 
+          search={search} 
+          setSearch={setSearch} 
+          loading={loading} 
+          itemCount={items.length} 
+        />
+      </div>
 
-      <ItemGrid items={items} loading={loading} />
+      <div className="w-full">
+        <ItemGrid items={items} loading={loading} />
+      </div>
     </div>
   );
 }

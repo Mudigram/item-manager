@@ -13,6 +13,11 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    "forceConsistentCasingInFileNames": true,
+    /* Performance and bundling optimizations */
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
     "plugins": [
       {
         "name": "next"

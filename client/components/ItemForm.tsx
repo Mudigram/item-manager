@@ -49,8 +49,8 @@ const ItemForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="premium-card p-8 sm:p-10 bg-white space-y-8">
-            <div className="space-y-6">
+        <form onSubmit={handleSubmit} className="premium-card p-6 sm:p-8 lg:p-10 bg-white space-y-6 sm:space-y-8">
+            <div className="space-y-5 sm:space-y-6">
                 <div>
                     <label className="block text-sm font-bold text-slate-700 mb-3">
                         Item Name <span className="text-red-500">*</span>
@@ -58,7 +58,7 @@ const ItemForm = () => {
                     <input
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        className={`premium-input ${errors.name ? 'border-red-400 focus:ring-red-100 focus:border-red-400' : ''}`}
+                        className={`premium-input text-sm sm:text-base ${errors.name ? 'border-red-400 focus:ring-red-100 focus:border-red-400' : ''}`}
                         placeholder="e.g. Ergonomic Office Chair"
                         autoFocus
                     />
@@ -79,8 +79,8 @@ const ItemForm = () => {
                     <textarea
                         value={form.description}
                         onChange={(e) => setForm({ ...form, description: e.target.value })}
-                        rows={6}
-                        className="premium-input resize-none"
+                        rows={4}
+                        className="premium-input resize-none text-sm sm:text-base min-h-[120px] sm:min-h-[150px]"
                         placeholder="Tell us more about this item..."
                     />
                 </div>
@@ -88,23 +88,30 @@ const ItemForm = () => {
 
             {errors.api && <ErrorMessage message={errors.api} />}
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col gap-3 sm:gap-4 pt-4">
                 <button
                     type="submit"
                     disabled={submitting}
-                    className="flex-1 premium-button-primary py-4 text-base flex justify-center items-center gap-2"
+                    className="w-full premium-button-primary py-3 sm:py-4 text-base flex justify-center items-center gap-2 hover:shadow-lg transition-shadow"
                 >
                     {submitting ? (
                         <>
                             <div className="w-4 h-4 border-2 border-white/20 border-b-white rounded-full animate-spin" />
                             Adding...
                         </>
-                    ) : 'Save Item'}
+                    ) : (
+                        <>
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                            </svg>
+                            Save Item
+                        </>
+                    )}
                 </button>
                 <button
                     type="button"
                     onClick={() => router.push('/')}
-                    className="flex-1 premium-button-secondary py-4 text-base"
+                    className="w-full premium-button-secondary py-3 sm:py-4 text-base"
                 >
                     Cancel
                 </button>
