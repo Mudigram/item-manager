@@ -216,6 +216,8 @@ textarea {
   
   html, body {
     width: 100%;
+  }
+  body {
     overflow-x: hidden;
   }
 }
