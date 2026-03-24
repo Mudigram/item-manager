@@ -8,18 +8,16 @@ router.get('/', protect, async (req: AuthRequest, res: Response): Promise<void> 
     try {
         const search = (req.query.search as string) || '';
 
-
-
-        const [items] = await pool.query(
+        const result = await pool.query(
             `SELECT items.*, users.username
-       FROM items
-       JOIN users ON items.user_id = users.id
-       WHERE items.name LIKE ? OR items.description LIKE ?
-       ORDER BY items.created_at DESC`,
+             FROM items
+             JOIN users ON items.user_id = users.id
+             WHERE items.name ILIKE $1 OR items.description ILIKE $2
+             ORDER BY items.created_at DESC`,
             [`%${search}%`, `%${search}%`]
         );
 
-        res.json(items);
+        res.json(result.rows);
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: (err as Error).message });
     }
@@ -42,14 +40,12 @@ router.post(
         const { name, description } = req.body as { name: string; description?: string };
 
         try {
-            const [result] = await pool.query(
-                'INSERT INTO items (name, description, user_id) VALUES (?, ?, ?)',
+            const result = await pool.query(
+                'INSERT INTO items (name, description, user_id) VALUES ($1, $2, $3) RETURNING *',
                 [name, description || '', req.user!.id]
-            ) as any;
+            );
 
-            const [newItem] = await pool.query('SELECT * FROM items WHERE id = ?', [result.insertId]);
-
-            res.status(201).json((newItem as any[])[0]);
+            res.status(201).json(result.rows[0]);
         } catch (err) {
             res.status(500).json({ message: 'Server error', error: (err as Error).message });
         }

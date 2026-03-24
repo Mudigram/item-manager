@@ -27,33 +27,31 @@ router.post(
         };
 
         try {
-
-            const [existing] = await pool.query(
-                'SELECT id FROM users WHERE email = ? OR username = ?',
-                [email, username]
+            const existingResult = await pool.query(
+                'SELECT id FROM users WHERE email = $1 OR username = $2', [email, username]
             );
 
-            if ((existing as any[]).length > 0) {
+            if (existingResult.rows.length > 0) {
                 res.status(400).json({ message: 'Email or username already taken' });
                 return;
             }
 
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            const [result] = await pool.query(
-                'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+            const result = await pool.query(
+                'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id',
                 [username, email, hashedPassword]
-            ) as any;
+            );
 
             const token = jwt.sign(
-                { id: result.insertId, username },
+                { id: result.rows[0].id, username },
                 process.env.JWT_SECRET as string,
                 { expiresIn: '7d' }
             );
 
             res.status(201).json({
                 token,
-                user: { id: result.insertId, username, email },
+                user: { id: result.rows[0].id, username, email },
             });
         } catch (err) {
             res.status(500).json({ message: 'Server error', error: (err as Error).message });
@@ -77,9 +75,8 @@ router.post(
         const { email, password } = req.body as { email: string; password: string };
 
         try {
-            const [users] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-            const userList = users as any[];
-
+            const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+            const userList = result.rows;
 
             if (userList.length === 0) {
                 res.status(400).json({ message: 'Invalid credentials' });
